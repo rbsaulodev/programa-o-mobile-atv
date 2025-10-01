@@ -1,8 +1,7 @@
 package com.rafael.firstapplication_2
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,24 +15,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
 
-        enableEdgeToEdge()
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // val button = findViewById<Button>(R.id.button)
-        // val editText = findViewById<EditText>(R.id.edit_text)
-        val editText = binding.editText
-        val button = binding.button
+        binding.buttonShowData.setOnClickListener {
+            val email = binding.editTextEmail.text.toString()
+            val password = binding.editTextPassword.text.toString()
+            val message = "Email: $email\nSenha: $password"
 
-        button.setOnClickListener { view ->
-            println(editText.text)
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         }
     }
 }
